@@ -1,0 +1,39 @@
+  
+[
+  {
+    "vendor_id": "639bd43b869bab7f71271ac6",
+    "vendortitle": "Old Chang Kee",
+    "vendorlogo": "/images/paupauplaceholder.png",
+    "vendorheader": "/images/placeholder1.jpg", 
+    "rating": "5",
+    "tags": ["halal", "supper", "all-day breakfast"]
+    
+  },
+  {
+    "vendor_id": "639ac41ad3cd573f1784109d",
+    "vendortitle": "Macdonalds",
+    "vendorlogo": "/images/paupauplaceholder.png", 
+    "vendorheader": "/images/placeholder1.jpg", 
+    "rating": "4.3",
+    "tags": ["halal", "delivery", "western", "fast-food"]
+    
+  },
+  {
+    "vendor_id": "639bd50b869bab7f71271ac7",
+    "vendortitle": "Pizza Hut",
+    "vendorlogo": "/images/paupauplaceholder.png", 
+    "vendorheader": "/images/placeholder1.jpg", 
+    "rating": "3.9",
+    "tags": ["halal", "delivery", "fast-food"]
+    
+  },
+  {
+    "vendor_id": "639ac3b7d3cd573f1784109b",
+    "vendortitle": "Peach Garden",
+    "vendorlogo": "/images/paupauplaceholder.png", 
+    "vendorheader": "/images/placeholder1.jpg", 
+    "rating": "5",
+    "tags": ["halal", "restaurant", "full course meal", "chinese"]
+    
+  }
+]

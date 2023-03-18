@@ -1,0 +1,12 @@
+[
+    {
+        "user_id": "639bd43b86639ac41ad3cd573f1784109d9bab7f71271ac6",
+        "user_firstname": "John",
+        "user_lastname": "Wick",
+        "user_addresses": ["16 Redland Road", "3A Abbey Lane"],
+        "user_playlists": ["3421C2","9582ff","5339DC"],
+        "user_preferences": ["Western","Asian", "Supper", "Lunch"],
+        "user_payment": [""]
+    }
+]
+
