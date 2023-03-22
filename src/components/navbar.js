@@ -1,6 +1,5 @@
 import React from "react";
 
-
 export default function Navbar(props) {
   const trial = props.page;
   console.log(trial);
@@ -11,7 +10,11 @@ export default function Navbar(props) {
     <React.Fragment>
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#" onClick={() => switchPage('landing')}>
+          <a
+            class="navbar-brand"
+            href="#"
+            onClick={() => switchPage("landing")}
+          >
             AutoPanda Logo
           </a>
           <button
