@@ -196,6 +196,9 @@ export default function TimePicker(props) {
             aria-expanded="false"
           >
             {props.daypicked === "" ? "Select slot" : props.slotpicked}{" "}
+            {props.daypicked !== "" && props.slotpicked === ""
+              ? "Select slot"
+              : props.slotpicked}{" "}
           </button>
           <ul class="dropdown-menu">
             {console.log(

@@ -22,6 +22,7 @@ export default class Create extends React.Component {
       dishes: [],
       daypicked: "",
       slotpicked: "",
+      freqpicked: "",
       showSummary: false,
     };
     this.onValueChange = this.onValueChange.bind(this);
@@ -89,6 +90,10 @@ export default class Create extends React.Component {
     this.setState({ slotpicked: slotChoice });
   };
 
+  selectFreq = (freqChoice) => {
+    this.setState({ freqpicked: freqChoice });
+  };
+
   summaryToggle = () => {
     this.setState({ showSummary: !this.state.showSummary });
   };
@@ -153,6 +158,12 @@ export default class Create extends React.Component {
               state={this.state}
               vendordata={this.props.state.userchoice}
               summaryToggle={this.summaryToggle}
+              selectDay={this.selectDay}
+              daypicked={this.state.daypicked}
+              slotpicked={this.state.slotpicked}
+              selectSlot={this.selectSlot}
+              freqpicked={this.state.freqpicked}
+              selectFreq={this.selectFreq}
             />
           </div>
         )}
