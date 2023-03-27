@@ -1,9 +1,6 @@
 import React from "react";
 
 export default function Navbar(props) {
-  const trial = props.page;
-  console.log(trial);
-
   const switchPage = props.switchPage;
 
   return (

@@ -53,6 +53,12 @@ export default function Swimlane(props) {
             </button>
           );
         })}
+        <button
+          href=""
+          onClick={() => {
+            props.switchPage("featuredplaylist");
+          }}
+        ></button>
       </div>
     </React.Fragment>
   );

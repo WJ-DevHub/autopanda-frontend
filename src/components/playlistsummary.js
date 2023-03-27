@@ -8,10 +8,6 @@ export default function PlaylistSummary(props) {
     }
   }
 
-  function convertToList(object) {
-    return Object.entries(object);
-  }
-
   function generateListItem(dish) {
     let item = dish.item.item;
     //console.log(typeof item);
@@ -145,6 +141,38 @@ export default function PlaylistSummary(props) {
         </h2>
         <form class="needs-validation" novalidate>
           <div class="row g-3">
+            <div class="col-7">
+              <label for="receiver" class="form-label">
+                Recipient Name
+              </label>
+              <input
+                type="text"
+                class="form-control"
+                id="receiver"
+                placeholder="Recipient"
+                name="receiverName"
+                onChange={props.updateFormField}
+                required
+              />
+              <div class="invalid-feedback">Please enter a valid name.</div>
+            </div>
+            <div class="col-5">
+              <label for="receiverContact" class="form-label">
+                Contact
+              </label>
+              <input
+                type="text"
+                class="form-control"
+                id="address"
+                placeholder="Enter contact number"
+                name="receiverContact"
+                onChange={props.updateFormField}
+                required
+              />
+              <div class="invalid-feedback">
+                Please enter recipient contact number.
+              </div>
+            </div>
             <div class="col-12">
               <label for="address" class="form-label">
                 Address
@@ -154,10 +182,12 @@ export default function PlaylistSummary(props) {
                 class="form-control"
                 id="address"
                 placeholder="Enter Address"
+                onChange={props.updateFormField}
+                name="userAddress"
                 required
               />
               <div class="invalid-feedback">
-                Please enter your shipping address.
+                Please enter your delivery address.
               </div>
             </div>
 
@@ -167,8 +197,10 @@ export default function PlaylistSummary(props) {
               </label>
               <input
                 type="text"
+                onChange={props.updateFormField}
                 class="form-control"
                 id="unit"
+                name="userUnit"
                 placeholder="Floor-Unit Number"
               />
             </div>
@@ -181,6 +213,8 @@ export default function PlaylistSummary(props) {
                 class="form-control"
                 id="zip"
                 placeholder=""
+                name="userZip"
+                onChange={props.updateFormField}
                 required
               />
               <div class="invalid-feedback">Zip code required.</div>

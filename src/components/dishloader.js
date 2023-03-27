@@ -4,7 +4,7 @@ export default function DishLoader(props) {
   return (
     <React.Fragment>
       <div
-        class="card"
+        class="card-fluid col-sm-5 col-12"
         style={{
           padding: 10,
           marginBottom: 25,

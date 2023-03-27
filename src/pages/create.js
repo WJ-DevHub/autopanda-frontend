@@ -24,6 +24,12 @@ export default class Create extends React.Component {
       slotpicked: "",
       freqpicked: "",
       showSummary: false,
+      deliveryAddress: [],
+      userAddress: "",
+      userUnit: "",
+      userZip: "",
+      userReceiver: "",
+      newPlaylist: [],
     };
     this.onValueChange = this.onValueChange.bind(this);
     this.formSubmit = this.formSubmit.bind(this);
@@ -72,6 +78,13 @@ export default class Create extends React.Component {
     });
   };
 
+  submitPlaylist(event) {
+    event.preventDefault();
+    this.setState({
+      newPlaylist: [[]],
+    });
+  }
+
   selectDay = (dayChoice) => {
     let week = [
       [0, "Mon"],
@@ -98,6 +111,12 @@ export default class Create extends React.Component {
     this.setState({ showSummary: !this.state.showSummary });
   };
 
+  updateFormField = (event) => {
+    this.setState({
+      [event.target.name]: event.target.value,
+    });
+  };
+
   render() {
     return (
       <React.Fragment>
@@ -116,30 +135,25 @@ export default class Create extends React.Component {
             <h2>
               <b>Dishes</b>
             </h2>
-            {this.props.state.dishdata.map((dish) =>
-              dish.vendor_id === this.props.state.userchoice.vendor_id ? (
-                <DishLoader
-                  dish={dish}
-                  addDish={this.props.addDish}
-                  registerChoice={this.registerChoice}
-                  constructor={this.constructor}
-                  onValueChange={this.onValueChange}
-                  picker={this.picker}
-                  dishChoice={this.state.dishChoice}
-                />
-              ) : (
-                ""
-              )
-            )}
-            {
-              <TimePicker
-                vendordata={this.props.state.userchoice}
-                selectDay={this.selectDay}
-                daypicked={this.state.daypicked}
-                slotpicked={this.state.slotpicked}
-                selectSlot={this.selectSlot}
-              />
-            }{" "}
+            <div class="col-auto">
+              <div class="row justify-content-around">
+                {this.props.state.dishdata.map((dish) =>
+                  dish.vendor_id === this.props.state.userchoice.vendor_id ? (
+                    <DishLoader
+                      dish={dish}
+                      addDish={this.props.addDish}
+                      registerChoice={this.registerChoice}
+                      constructor={this.constructor}
+                      onValueChange={this.onValueChange}
+                      picker={this.picker}
+                      dishChoice={this.state.dishChoice}
+                    />
+                  ) : (
+                    ""
+                  )
+                )}
+              </div>
+            </div>
             <button
               className="btn btn-default"
               type="submit"
@@ -164,6 +178,8 @@ export default class Create extends React.Component {
               selectSlot={this.selectSlot}
               freqpicked={this.state.freqpicked}
               selectFreq={this.selectFreq}
+              deliveryAddress={this.state.deliveryAddress}
+              updateFormField={this.updateFormField}
             />
           </div>
         )}

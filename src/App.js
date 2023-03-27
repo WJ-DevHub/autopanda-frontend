@@ -10,6 +10,7 @@ import ProfilePage from "./pages/profile";
 import HistoryPage from "./pages/history";
 import HomePage from "./pages/home";
 import Create from "./pages/create";
+import FeaturedPlaylist from "./pages/featuredplaylist";
 //import {useSelector, useDispatch} from 'react-redux;'
 import axios from "axios";
 
@@ -61,6 +62,16 @@ export default class App extends React.Component {
     promodata: [],
     userchoice: [],
     dishCart: [],
+    playlistData: {
+      data: [],
+      error: false,
+      message: "",
+    },
+    userData: {
+      data: [],
+      error: false,
+      message: "",
+    },
   };
 
   async componentDidMount() {
@@ -69,15 +80,59 @@ export default class App extends React.Component {
       `${this.BASE_API_URL}/vendordata`
     );
     const dishDataResponse = await axios.get(`${this.BASE_API_URL}/dishdata`);
-    console.log(vendorDataResponse.data);
+    const playlistsDataResponse = await axios.get(
+      `${this.PLAYLIST_URL}/playlists`
+    );
+    const userDataResponse = await axios.get(
+      `${this.SUBSCRIPTION_URL}/subscription/user` + `/${this.currentUser}`
+    );
+
     this.setState({
       vendordata: vendorDataResponse.data,
       dishdata: dishDataResponse.data,
+      playlistData: playlistsDataResponse.data.data,
+      userData: userDataResponse.data,
     });
   }
 
+  // addNewPlaylist = async () => {
+  //   const newPlaylist = {
+  //     "playlistName": "TESTING THE PLAYLIST",
+  //     "categoryCode": "Mal",
+  //     "dietaryInfo": "None",
+  //     "status": "Active",
+  //     "startDate": "2023-02-11T00:00:00Z",
+  //     "endDate": "2023-04-26T00:00:00Z",
+  //     "popularity": 5
+  //   };
+  //   const response = await axios.post(
+  //     this.TRIAL_URL + "/playlists/new",
+  //     newPlaylist
+  //   );
+  //   console.log(`New Recipe Added`);
+  //   console.log(response);
+  //   this.setState({ submitted: newPlaylist });
+  // };
+
+  // addNewSubscription = async() => {
+  //   const newSubscription = {"SubscriptionRequest": {
+  //     "userID": "",
+  //     "playlistID": "",
+  //     "customized": false,
+  //     "frequency": "",
+  //     "startDate": "",
+  //     "endDate": ""
+  //   },
+  // "DishIncluded": [
+  //   {}
+  // ]}
+  // }
+
   BASE_API_URL = "https://autopanda-backend.onrender.com";
-  USERDATA_URL = "";
+  PLAYLIST_URL = "http://localhost:8081";
+  SUBSCRIPTION_URL = "http://localhost:8083";
+
+  currentUser = "user6";
 
   switchPage = (page) => {
     this.setState({
@@ -90,8 +145,11 @@ export default class App extends React.Component {
       userchoice: vendorId,
     });
   };
-
-  addDish = (dishChoice) => {};
+  updateFormField = (event) => {
+    this.setState({
+      [event.target.name]: event.target.value,
+    });
+  };
 
   renderPage() {
     if (this.state.page === "landing") {
@@ -102,6 +160,7 @@ export default class App extends React.Component {
           state={this.state}
           switchPage={this.switchPage}
           addDish={this.addDish}
+          updateFormField={this.updateFormField}
         />
       );
     } else if (this.state.page === "home") {
@@ -114,6 +173,8 @@ export default class App extends React.Component {
       );
     } else if (this.state.page === "profile") {
       return <ProfilePage />;
+    } else if (this.state.page === "featuredplaylist") {
+      return <FeaturedPlaylist />;
     } else if (this.state.page === "history") {
       return <HistoryPage />;
     } else if (this.state.page === "support") {
@@ -128,6 +189,7 @@ export default class App extends React.Component {
           <Navbar page={this.state} switchPage={this.switchPage} />
           <div>{this.renderPage()}</div>
           <header className="App-header"></header>
+          <button onClick={this.addNewPlaylist}>Click here</button>
         </div>
       </React.Fragment>
     );

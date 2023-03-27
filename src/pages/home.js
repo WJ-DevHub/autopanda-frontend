@@ -13,7 +13,6 @@ export default class HomePage extends React.Component {
   }
 */
   render() {
-    console.log(this.props.state.vendordata);
     return (
       <React.Fragment>
         <h1>Home</h1>
