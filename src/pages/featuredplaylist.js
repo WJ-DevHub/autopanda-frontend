@@ -1,11 +1,25 @@
 import React from "react";
+import axios from "axios";
+import RestaurantLoader from "../components/restaurantloader";
 
 export default class FeaturedPlaylist extends React.Component {
+  playlistdetails = this.props.state.userchoice;
+  newDishData = this.props.state.userchoice.DishIncluded;
+  //   async getRestaurantDishes() {
+  //     const dishDataResponse = await axios.get(
+  //       `${this.PLAYLIST_URL}/playlists/restarant` +
+  //         `/${this.state.currentRestarant}`
+  //     );
+  //     return;
+  //   }
+
+  PLAYLIST_URL = "http://localhost:8081";
+
   render() {
     return (
       <React.Fragment>
         <h2>
-          <b>This is [playlist category]</b>
+          <b>This is {this.playlistdetails.Playlist.name}</b>
         </h2>{" "}
         <div class="container col-xxl-8 px-4 py-5">
           <div
@@ -101,7 +115,11 @@ export default class FeaturedPlaylist extends React.Component {
         <div class="container-fluid col-xxl-8 px-4 py-5">
           <div class="row justify-content-between">
             <div class="col-7 text-start">
-              <h2>Encik Tan, Hong Kong Street and more...</h2>
+              <h2>
+                {this.playlistdetails.RestaurantInfo[0].restaurantName},{" "}
+                {this.playlistdetails.RestaurantInfo[1].restaurantName} and
+                more...
+              </h2>
               <div class="container">
                 <h6>other items to mention...</h6>
                 <h6>other items to mention...</h6>
@@ -110,96 +128,15 @@ export default class FeaturedPlaylist extends React.Component {
               </div>
             </div>
             <div class="col-5 text-end">test2</div>
-          </div>
-
-          <div
-            class="card"
-            style={{
-              padding: 10,
-              marginBottom: 25,
-              boxShadow: "1px 2px 9px gray",
-            }}
-          >
-            <div class="row text-start">
-              <h4>Encik Tan</h4>
-            </div>
-            <div class="row">
-              <div class="col-3">image</div>
-              <div class="col-6">
-                <li>item 1</li>
-                <li>item 2</li>
-                <li>item 3</li>
-                <li>item 4</li>
-              </div>
-              <div class="col-3">button</div>
-            </div>
-          </div>
-          <div
-            class="card"
-            style={{
-              padding: 10,
-              marginBottom: 25,
-              boxShadow: "1px 2px 9px gray",
-            }}
-          >
-            <div class="row text-start">
-              <h4>Encik Tan</h4>
-            </div>
-            <div class="row">
-              <div class="col-3">image</div>
-              <div class="col-6">
-                <li>item 1</li>
-                <li>item 2</li>
-                <li>item 3</li>
-                <li>item 4</li>
-              </div>
-              <div class="col-3">button</div>
-            </div>
-          </div>
-          <div
-            class="card"
-            style={{
-              padding: 10,
-              marginBottom: 25,
-              boxShadow: "1px 2px 9px gray",
-            }}
-          >
-            <div class="row text-start">
-              <h4>Encik Tan</h4>
-            </div>
-            <div class="row">
-              <div class="col-3">image</div>
-              <div class="col-6">
-                <li>item 1</li>
-                <li>item 2</li>
-                <li>item 3</li>
-                <li>item 4</li>
-              </div>
-              <div class="col-3">button</div>
-            </div>
-          </div>
-          <div
-            class="card"
-            style={{
-              padding: 10,
-              marginBottom: 25,
-              boxShadow: "1px 2px 9px gray",
-            }}
-          >
-            <div class="row text-start">
-              <h4>Encik Tan</h4>
-            </div>
-            <div class="row">
-              <div class="col-3">image</div>
-              <div class="col-6">
-                <li>item 1</li>
-                <li>item 2</li>
-                <li>item 3</li>
-                <li>item 4</li>
-              </div>
-              <div class="col-3">button</div>
-            </div>
-          </div>
+          </div>{" "}
+          {this.playlistdetails.RestaurantInfo.map((eachRestaurant) => (
+            <RestaurantLoader
+              restaurant={eachRestaurant}
+              dishes={this.newDishData}
+              userChose={this.props.userChose}
+              switchPage={this.props.switchPage}
+            />
+          ))}
         </div>
       </React.Fragment>
     );

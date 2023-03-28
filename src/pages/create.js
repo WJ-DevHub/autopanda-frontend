@@ -2,6 +2,8 @@ import React from "react";
 import DishLoader from "../components/dishloader";
 import TimePicker from "../components/timepicker";
 import PlaylistSummary from "../components/playlistsummary";
+import axios from "axios";
+
 //import axios from "axios";
 //import vendordata from "../API/vendordata.json";
 //import { VendorDetails } from "../components/loader";
@@ -30,11 +32,20 @@ export default class Create extends React.Component {
       userZip: "",
       userReceiver: "",
       newPlaylist: [],
+      newDishData2: [],
     };
     this.onValueChange = this.onValueChange.bind(this);
     this.formSubmit = this.formSubmit.bind(this);
   }
 
+  async componentDidMount() {
+    const dishDataResponse = await axios.get(
+      `${this.SELECTED_API_URL}` + `/${this.props.state.userchoice.id}`
+    );
+
+    this.setState({ newDishData2: dishDataResponse.data.data.DishIncluded });
+  }
+  SELECTED_API_URL = "http://localhost:8081/playlists/restaurant";
   onValueChange(event) {
     const picker = event.target.name;
 
@@ -120,11 +131,13 @@ export default class Create extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <h1>You are looking at: {this.props.state.userchoice.vendortitle}</h1>
+        <h1>
+          You are looking at: {this.props.state.userchoice.restaurantName}
+        </h1>
         <img
-          src={this.props.state.userchoice.vendorheader}
+          src={this.props.state.userchoice.headerURL}
           class="d-block mx-lg-auto img-fluid"
-          alt="Bootstrap Themes"
+          alt="Restaurant Header"
           width="100%"
           height="300"
           loading="lazy"
@@ -137,21 +150,17 @@ export default class Create extends React.Component {
             </h2>
             <div class="col-auto">
               <div class="row justify-content-around">
-                {this.props.state.dishdata.map((dish) =>
-                  dish.vendor_id === this.props.state.userchoice.vendor_id ? (
-                    <DishLoader
-                      dish={dish}
-                      addDish={this.props.addDish}
-                      registerChoice={this.registerChoice}
-                      constructor={this.constructor}
-                      onValueChange={this.onValueChange}
-                      picker={this.picker}
-                      dishChoice={this.state.dishChoice}
-                    />
-                  ) : (
-                    ""
-                  )
-                )}
+                {this.state.newDishData2.map((dish) => (
+                  <DishLoader
+                    dish={dish}
+                    addDish={this.props.addDish}
+                    registerChoice={this.registerChoice}
+                    constructor={this.constructor}
+                    onValueChange={this.onValueChange}
+                    picker={this.picker}
+                    dishChoice={this.state.dishChoice}
+                  />
+                ))}
               </div>
             </div>
             <button

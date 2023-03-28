@@ -11,7 +11,6 @@ import HistoryPage from "./pages/history";
 import HomePage from "./pages/home";
 import Create from "./pages/create";
 import FeaturedPlaylist from "./pages/featuredplaylist";
-//import {useSelector, useDispatch} from 'react-redux;'
 import axios from "axios";
 
 /*
@@ -72,6 +71,9 @@ export default class App extends React.Component {
       error: false,
       message: "",
     },
+    restaurantdata: [],
+    newDishData: [],
+    currentRestarant: [],
   };
 
   async componentDidMount() {
@@ -80,53 +82,34 @@ export default class App extends React.Component {
       `${this.BASE_API_URL}/vendordata`
     );
     const dishDataResponse = await axios.get(`${this.BASE_API_URL}/dishdata`);
-    const playlistsDataResponse = await axios.get(
-      `${this.PLAYLIST_URL}/playlists`
+    const restaurantDataResponse = await axios.get(
+      `${this.PLAYLIST_URL}/playlists/restaurants`
     );
     const userDataResponse = await axios.get(
       `${this.SUBSCRIPTION_URL}/subscription/user` + `/${this.currentUser}`
+    );
+    const playlistDataResponse = await axios.get(
+      `${this.PLAYLIST_URL}/playlists`
     );
 
     this.setState({
       vendordata: vendorDataResponse.data,
       dishdata: dishDataResponse.data,
-      playlistData: playlistsDataResponse.data.data,
+      restaurantdata: restaurantDataResponse.data.data,
       userData: userDataResponse.data,
+      playlistData: playlistDataResponse.data.data,
     });
   }
 
-  // addNewPlaylist = async () => {
-  //   const newPlaylist = {
-  //     "playlistName": "TESTING THE PLAYLIST",
-  //     "categoryCode": "Mal",
-  //     "dietaryInfo": "None",
-  //     "status": "Active",
-  //     "startDate": "2023-02-11T00:00:00Z",
-  //     "endDate": "2023-04-26T00:00:00Z",
-  //     "popularity": 5
-  //   };
-  //   const response = await axios.post(
-  //     this.TRIAL_URL + "/playlists/new",
-  //     newPlaylist
-  //   );
-  //   console.log(`New Recipe Added`);
-  //   console.log(response);
-  //   this.setState({ submitted: newPlaylist });
-  // };
-
-  // addNewSubscription = async() => {
-  //   const newSubscription = {"SubscriptionRequest": {
-  //     "userID": "",
-  //     "playlistID": "",
-  //     "customized": false,
-  //     "frequency": "",
-  //     "startDate": "",
-  //     "endDate": ""
-  //   },
-  // "DishIncluded": [
-  //   {}
-  // ]}
-  // }
+  async getRestaurantDishes() {
+    const dishDataResponse = await axios.get(
+      `${this.PLAYLIST_URL}/playlists/restarant` +
+        `/${this.state.currentRestarant}`
+    );
+    this.setState({
+      newDishData: dishDataResponse.data,
+    });
+  }
 
   BASE_API_URL = "https://autopanda-backend.onrender.com";
   PLAYLIST_URL = "http://localhost:8081";
@@ -174,7 +157,13 @@ export default class App extends React.Component {
     } else if (this.state.page === "profile") {
       return <ProfilePage />;
     } else if (this.state.page === "featuredplaylist") {
-      return <FeaturedPlaylist />;
+      return (
+        <FeaturedPlaylist
+          state={this.state}
+          switchPage={this.switchPage}
+          userChose={this.userChose}
+        />
+      );
     } else if (this.state.page === "history") {
       return <HistoryPage />;
     } else if (this.state.page === "support") {
