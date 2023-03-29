@@ -81,3 +81,32 @@
   gap: 10px;
   padding-top: 20px;
 }
+
+/* Login */
+.login-wrapper{
+  display:flex;
+  width: 15rem;
+  height: 12rem;
+  padding: 0 0.5rem;
+  position: absolute;
+  right: 1rem;
+  background-color: aliceblue;
+  border: 1px solid #6c757d;
+  flex-direction: column;
+  justify-content: flex-start;
+  border-radius: 5px;
+}
+
+.animation {
+  animation-name: fadeIn;
+  animation-duration: 1s;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
