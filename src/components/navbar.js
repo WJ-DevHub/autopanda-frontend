@@ -1,19 +1,49 @@
 import React from "react";
+import Login from "./login";
+import Logout from "./logout";
+
 
 export default function Navbar(props) {
+  const {loggedIn, setLoggedIn, updateUserData} = props;
   const trial = props.page;
-  console.log(trial);
 
   const switchPage = props.switchPage;
 
+  const handleLogout = () => {
+    setLoggedIn(false); // update loggedIn state to false
+    switchPage("home"); // redirect to login page
+  };
+
+  function logoutUser(username) {
+    const url = 'http://localhost:8080/userLogout';
+    const data = { user_name: username };
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    };
+    
+    fetch(url, options)
+      .then(response => { 
+        if (response.ok) {
+          console.log("Cookie removed successfully");
+        } else {
+          console.log("Failed to remove cookie");
+        }
+      })
+      .catch(error => console.log(error));
+  }
+
   return (
     <React.Fragment>
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
           <a
             class="navbar-brand"
             href="#"
-            onClick={() => switchPage("landing")}
+            onClick={() => switchPage("home")}
           >
             AutoPanda Logo
           </a>
@@ -68,9 +98,14 @@ export default function Navbar(props) {
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">
-                  Logout
-                </a>
+              {trial.userdata[0].loggedIn == false ? 
+              <Login trial={trial} 
+              setLoggedIn={setLoggedIn}
+              updateUserData={updateUserData}/>:
+              <Logout trial={trial} 
+              logoutUser={logoutUser}
+              handleLogout={handleLogout} /> 
+}         
               </li>
             </ul>
           </div>
