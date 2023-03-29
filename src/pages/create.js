@@ -2,6 +2,8 @@ import React from "react";
 import DishLoader from "../components/dishloader";
 import TimePicker from "../components/timepicker";
 import PlaylistSummary from "../components/playlistsummary";
+import axios from "axios";
+
 //import axios from "axios";
 //import vendordata from "../API/vendordata.json";
 //import { VendorDetails } from "../components/loader";
@@ -24,11 +26,26 @@ export default class Create extends React.Component {
       slotpicked: "",
       freqpicked: "",
       showSummary: false,
+      deliveryAddress: [],
+      userAddress: "",
+      userUnit: "",
+      userZip: "",
+      userReceiver: "",
+      newPlaylist: [],
+      newDishData2: [],
     };
     this.onValueChange = this.onValueChange.bind(this);
     this.formSubmit = this.formSubmit.bind(this);
   }
 
+  async componentDidMount() {
+    const dishDataResponse = await axios.get(
+      `${this.SELECTED_API_URL}` + `/${this.props.state.userchoice.id}`
+    );
+
+    this.setState({ newDishData2: dishDataResponse.data.data.DishIncluded });
+  }
+  SELECTED_API_URL = "http://localhost:8081/playlists/restaurant";
   onValueChange(event) {
     const picker = event.target.name;
 
@@ -72,6 +89,13 @@ export default class Create extends React.Component {
     });
   };
 
+  submitPlaylist(event) {
+    event.preventDefault();
+    this.setState({
+      newPlaylist: [[]],
+    });
+  }
+
   selectDay = (dayChoice) => {
     let week = [
       [0, "Mon"],
@@ -98,14 +122,22 @@ export default class Create extends React.Component {
     this.setState({ showSummary: !this.state.showSummary });
   };
 
+  updateFormField = (event) => {
+    this.setState({
+      [event.target.name]: event.target.value,
+    });
+  };
+
   render() {
     return (
       <React.Fragment>
-        <h1>You are looking at: {this.props.state.userchoice.vendortitle}</h1>
+        <h1>
+          You are looking at: {this.props.state.userchoice.restaurantName}
+        </h1>
         <img
-          src={this.props.state.userchoice.vendorheader}
+          src={this.props.state.userchoice.headerURL}
           class="d-block mx-lg-auto img-fluid"
-          alt="Bootstrap Themes"
+          alt="Restaurant Header"
           width="100%"
           height="300"
           loading="lazy"
@@ -116,30 +148,21 @@ export default class Create extends React.Component {
             <h2>
               <b>Dishes</b>
             </h2>
-            {this.props.state.dishdata.map((dish) =>
-              dish.vendor_id === this.props.state.userchoice.vendor_id ? (
-                <DishLoader
-                  dish={dish}
-                  addDish={this.props.addDish}
-                  registerChoice={this.registerChoice}
-                  constructor={this.constructor}
-                  onValueChange={this.onValueChange}
-                  picker={this.picker}
-                  dishChoice={this.state.dishChoice}
-                />
-              ) : (
-                ""
-              )
-            )}
-            {
-              <TimePicker
-                vendordata={this.props.state.userchoice}
-                selectDay={this.selectDay}
-                daypicked={this.state.daypicked}
-                slotpicked={this.state.slotpicked}
-                selectSlot={this.selectSlot}
-              />
-            }{" "}
+            <div class="col-auto">
+              <div class="row justify-content-around">
+                {this.state.newDishData2.map((dish) => (
+                  <DishLoader
+                    dish={dish}
+                    addDish={this.props.addDish}
+                    registerChoice={this.registerChoice}
+                    constructor={this.constructor}
+                    onValueChange={this.onValueChange}
+                    picker={this.picker}
+                    dishChoice={this.state.dishChoice}
+                  />
+                ))}
+              </div>
+            </div>
             <button
               className="btn btn-default"
               type="submit"
@@ -164,6 +187,8 @@ export default class Create extends React.Component {
               selectSlot={this.selectSlot}
               freqpicked={this.state.freqpicked}
               selectFreq={this.selectFreq}
+              deliveryAddress={this.state.deliveryAddress}
+              updateFormField={this.updateFormField}
             />
           </div>
         )}

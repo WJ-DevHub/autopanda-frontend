@@ -4,7 +4,7 @@ export default function DishLoader(props) {
   return (
     <React.Fragment>
       <div
-        class="card"
+        class="card-fluid col-sm-5 col-12"
         style={{
           padding: 10,
           marginBottom: 25,
@@ -12,14 +12,14 @@ export default function DishLoader(props) {
         }}
       >
         <h1>
-          {props.dish.title} (${props.dish.price})
+          {props.dish.name} (${props.dish.price})
         </h1>
-        <h4>{props.dish.description}</h4>
+        <h4>{props.dish.comment}</h4>
         <h4>
           <b>Options:</b>
         </h4>
 
-        {props.dish.options.map((option) =>
+        {props.dish.dishOptions.map((option) =>
           option.map((child) =>
             child === option[0] ? (
               <h5>{child}</h5>
@@ -29,7 +29,7 @@ export default function DishLoader(props) {
                   <input
                     type="radio"
                     name={option[0]}
-                    title={props.dish.title}
+                    title={props.dish.name}
                     value={child}
                     onChange={(event) => {
                       props.onValueChange(event);
@@ -46,7 +46,7 @@ export default function DishLoader(props) {
           className="btn btn-default"
           type="submit"
           onClick={() => {
-            props.registerChoice(props.dish.options.length + 1);
+            props.registerChoice(props.dish.dishOptions.length + 1);
           }}
           class="btn btn-primary btn-lg px-4 me-md-2"
         >

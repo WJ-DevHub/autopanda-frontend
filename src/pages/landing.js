@@ -43,16 +43,3 @@ export default function LandingPage() {
     </React.Fragment>
   );
 }
-
-/*
-export default class LandingPage extends React.Component {
-
-    state = {};
-
-    render() {
-        return(
-            <h1>Hi there</h1>
-        )
-    }
-}
-*/

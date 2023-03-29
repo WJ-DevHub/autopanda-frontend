@@ -1,7 +1,7 @@
 import React from "react";
 
 export default function TimePicker(props) {
-  let vendorhours = props.vendordata.availablehours;
+  let vendorhours = props.vendordata.operateHours;
 
   let numberofHours = {};
   let openHour = {};
@@ -10,18 +10,6 @@ export default function TimePicker(props) {
   let closeMinute = {};
   let dailyslots = [];
 
-  /*
-  vendorhours.map(
-    (openinghours) => (
-      (openHour = openinghours[0].slice(0, 2)),
-      (closeHour = openinghours[1].slice(0, 2)),
-      (openMinute = openinghours[0].slice(-2)),
-      (closeMinute = openinghours[1].slice(-2)),
-      (numberofHours = closeHour - openHour),
-      (for i in numberofHours)
-    )
-  );
-*/
   for (let i = 0; i < vendorhours.length; i++) {
     //iterate through the week
     let hoursSelection = [];
@@ -31,23 +19,17 @@ export default function TimePicker(props) {
     closeMinute = vendorhours[i][1].slice(-2);
     numberofHours = closeHour - openHour;
     let interval = 15;
-    // console.log("openminute is " + openMinute);
-    //console.log("openhour is " + openHour);
-    // console.log(numberofHours + " of hours in day " + i);
-    // console.log("day " + i + " starts at hour " + openHour);
+
     for (let j = 0; j < numberofHours; j++) {
-      // iterate through the day
+      //  through the day
       let currentHour = Number(openHour) + Number(j);
-      // console.log("logging day " + i + " hour number " + currentHour);
       for (let k = 0; k < 60; k += 15) {
-        //     let l = Number(k) + Number(interval);
         if (
           (currentHour === Number(openHour) && k < Number(openMinute)) ||
           (currentHour === Number(closeHour) && k > Number(closeMinute))
         ) {
           continue;
         }
-        // console.log(currentHour === openHour && k < openMinute);
         hoursSelection.push(
           formatTime(currentHour) +
             ":" +
@@ -56,12 +38,10 @@ export default function TimePicker(props) {
             finalSlot(j, k, interval, currentHour)
         );
       }
-      // console.log("this is " + i + "schedule " + hoursSelection);
     }
 
     dailyslots.push(hoursSelection);
   }
-  //console.log(dailyslots);
 
   function finalSlot(j, k, interval, currentHour) {
     if (Number(k) + Number(interval) === Number(60)) {
@@ -220,16 +200,3 @@ export default function TimePicker(props) {
     </React.Fragment>
   );
 }
-
-// dailyslots[Number(props.daypicked[0])]].map((slot) => (
-//   <li>
-//     <button
-//       class="dropdown-item"
-//       onClick={() => {
-//         props.selectSlot({ slot });
-//       }}
-//     >
-//       {slot}
-//     </button>
-//   </li>
-// )

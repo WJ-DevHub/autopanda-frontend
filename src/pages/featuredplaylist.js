@@ -1,21 +1,26 @@
 import React from "react";
-import Swimlane from "../components/swimlane";
-//import axios from "axios";
-//import vendordata from "../API/vendordata.json";
-//import { VendorDetails } from "../components/loader";
+import axios from "axios";
+import RestaurantLoader from "../components/restaurantloader";
 
-export default class HomePage extends React.Component {
-  /*
-  async componentDidMount() {
-    console.log("mounted");
-    const vendordetails = require("../API/vendordata.json");
-    this.setState({ data: vendordetails });
-  }
-*/
+export default class FeaturedPlaylist extends React.Component {
+  playlistdetails = this.props.state.userchoice;
+  newDishData = this.props.state.userchoice.DishIncluded;
+  //   async getRestaurantDishes() {
+  //     const dishDataResponse = await axios.get(
+  //       `${this.PLAYLIST_URL}/playlists/restarant` +
+  //         `/${this.state.currentRestarant}`
+  //     );
+  //     return;
+  //   }
+
+  PLAYLIST_URL = "http://localhost:8081";
+
   render() {
     return (
       <React.Fragment>
-        <h1>Home</h1>
+        <h2>
+          <b>This is {this.playlistdetails.Playlist.name}</b>
+        </h2>{" "}
         <div class="container col-xxl-8 px-4 py-5">
           <div
             id="carouselExampleIndicators"
@@ -107,12 +112,31 @@ export default class HomePage extends React.Component {
           </div>
         </div>
         <div class="landing-divider"></div>
-        <div class="container col-xxl-8 px-4 py-5">
-          <Swimlane
-            state={this.props.state}
-            userChose={this.props.userChose}
-            switchPage={this.props.switchPage}
-          />
+        <div class="container-fluid col-xxl-8 px-4 py-5">
+          <div class="row justify-content-between">
+            <div class="col-7 text-start">
+              <h2>
+                {this.playlistdetails.RestaurantInfo[0].restaurantName},{" "}
+                {this.playlistdetails.RestaurantInfo[1].restaurantName} and
+                more...
+              </h2>
+              <div class="container">
+                <h6>other items to mention...</h6>
+                <h6>other items to mention...</h6>
+
+                <h6>other items to mention...</h6>
+              </div>
+            </div>
+            <div class="col-5 text-end">test2</div>
+          </div>{" "}
+          {this.playlistdetails.RestaurantInfo.map((eachRestaurant) => (
+            <RestaurantLoader
+              restaurant={eachRestaurant}
+              dishes={this.newDishData}
+              userChose={this.props.userChose}
+              switchPage={this.props.switchPage}
+            />
+          ))}
         </div>
       </React.Fragment>
     );

@@ -10,7 +10,7 @@ import ProfilePage from "./pages/profile";
 import HistoryPage from "./pages/history";
 import HomePage from "./pages/home";
 import Create from "./pages/create";
-//import {useSelector, useDispatch} from 'react-redux;'
+import FeaturedPlaylist from "./pages/featuredplaylist";
 import axios from "axios";
 
 /*
@@ -72,6 +72,19 @@ export default class App extends React.Component {
     promodata: [],
     userchoice: [],
     dishCart: [],
+    playlistData: {
+      data: [],
+      error: false,
+      message: "",
+    },
+    userData: {
+      data: [],
+      error: false,
+      message: "",
+    },
+    restaurantdata: [],
+    newDishData: [],
+    currentRestarant: [],
   };
 
   async componentDidMount() {
@@ -80,14 +93,40 @@ export default class App extends React.Component {
       `${this.BASE_API_URL}/vendordata`
     );
     const dishDataResponse = await axios.get(`${this.BASE_API_URL}/dishdata`);
-    console.log(vendorDataResponse.data);
+    const restaurantDataResponse = await axios.get(
+      `${this.PLAYLIST_URL}/playlists/restaurants`
+    );
+    const userDataResponse = await axios.get(
+      `${this.SUBSCRIPTION_URL}/subscription/user` + `/${this.currentUser}`
+    );
+    const playlistDataResponse = await axios.get(
+      `${this.PLAYLIST_URL}/playlists`
+    );
+
     this.setState({
       vendordata: vendorDataResponse.data,
       dishdata: dishDataResponse.data,
+      restaurantdata: restaurantDataResponse.data.data,
+      userData: userDataResponse.data,
+      playlistData: playlistDataResponse.data.data,
     });
   }
+
+  async getRestaurantDishes() {
+    const dishDataResponse = await axios.get(
+      `${this.PLAYLIST_URL}/playlists/restarant` +
+        `/${this.state.currentRestarant}`
+    );
+    this.setState({
+      newDishData: dishDataResponse.data,
+    });
+  }
+
   BASE_API_URL = "https://autopanda-backend.onrender.com";
-  USERDATA_URL = "";
+  PLAYLIST_URL = "http://localhost:8081";
+  SUBSCRIPTION_URL = "http://localhost:8083";
+
+  currentUser = "user6";
 
   switchPage = (page) => {
     this.setState({
@@ -118,6 +157,11 @@ updateUserData = (newUserdata) => {
     userdata: [newUserdata],
   });
 };
+  updateFormField = (event) => {
+    this.setState({
+      [event.target.name]: event.target.value,
+    });
+  };
 
   renderPage() {
     console.log(`User Data APP.JS: ${JSON.stringify(this.state.userdata[0])}`);
@@ -129,6 +173,7 @@ updateUserData = (newUserdata) => {
           state={this.state}
           switchPage={this.switchPage}
           addDish={this.addDish}
+          updateFormField={this.updateFormField}
         />
       );
     } else if (this.state.page === "home") {
@@ -141,6 +186,14 @@ updateUserData = (newUserdata) => {
       );
     } else if (this.state.page === "profile") {
       return <ProfilePage />;
+    } else if (this.state.page === "featuredplaylist") {
+      return (
+        <FeaturedPlaylist
+          state={this.state}
+          switchPage={this.switchPage}
+          userChose={this.userChose}
+        />
+      );
     } else if (this.state.page === "history") {
       return <HistoryPage />;
     } else if (this.state.page === "support") {
@@ -156,6 +209,7 @@ updateUserData = (newUserdata) => {
 />
           <div>{this.renderPage()}</div>
           <header className="App-header"></header>
+          <button onClick={this.addNewPlaylist}>Click here</button>
         </div>
       </React.Fragment>
     );
