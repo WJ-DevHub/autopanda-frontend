@@ -45,7 +45,18 @@ export default class App extends React.Component {
     page: "landing",
     vendordata: [],
     dishdata: [],
-    userdata: [],
+    userdata: [
+      {
+      loggedIn:false,
+      id: "",
+      firstName: "",
+      lastName: "",
+      userName: "",
+      userPassword: "",
+      email: "",
+      mobile: "",
+      }
+    ],
     userplaylist: [],
     newplaylist: [
       {
@@ -75,7 +86,6 @@ export default class App extends React.Component {
       dishdata: dishDataResponse.data,
     });
   }
-
   BASE_API_URL = "https://autopanda-backend.onrender.com";
   USERDATA_URL = "";
 
@@ -90,10 +100,27 @@ export default class App extends React.Component {
       userchoice: vendorId,
     });
   };
+ addDish = (dishChoice) => {};
 
-  addDish = (dishChoice) => {};
+ setLoggedIn = (loggedIn) => {
+  const { userdata } = this.state;
+  const updatedUserdata = [{ ...userdata[0], loggedIn }];
+  this.setState({
+    userdata: updatedUserdata,
+  });
+};
+
+updateUserData = (newUserdata) => {
+  const { userdata } = this.state;
+  var a = userdata[0][0];
+  console.log(a)
+  this.setState({
+    userdata: [newUserdata],
+  });
+};
 
   renderPage() {
+    console.log(`User Data APP.JS: ${JSON.stringify(this.state.userdata[0])}`);
     if (this.state.page === "landing") {
       return <LandingPage />;
     } else if (this.state.page === "creating") {
@@ -125,7 +152,8 @@ export default class App extends React.Component {
     return (
       <React.Fragment>
         <div className="App">
-          <Navbar page={this.state} switchPage={this.switchPage} />
+        <Navbar page={this.state} switchPage={this.switchPage} updateUserData={this.updateUserData}  setLoggedIn={this.setLoggedIn} 
+/>
           <div>{this.renderPage()}</div>
           <header className="App-header"></header>
         </div>
