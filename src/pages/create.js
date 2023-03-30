@@ -48,6 +48,21 @@ export default class Create extends React.Component {
 
   SELECTED_API_URL = "http://localhost:8081/playlists/restaurant";
 
+  showPopup(message) {
+    const popup = document.createElement("div");
+    popup.classList.add("popup");
+    popup.textContent = message;
+
+    document.body.appendChild(popup);
+
+    setTimeout(() => {
+      popup.classList.add("popup--hide");
+      setTimeout(() => {
+        popup.remove();
+      }, 500);
+    }, 5000);
+  }
+
   onValueChange(event) {
     const picker = event.target.name;
 
@@ -69,17 +84,19 @@ export default class Create extends React.Component {
   }
 
   formSubmit() {
-    let data = this.state.dishes;
-    const result = {};
-    for (const key in data) {
-      const dishId = [];
-      console.log(key);
-      if (key === data[0]) {
-        continue;
-      }
-      dishId[key] = data.item[key];
-      result.push({ DishID: dishId });
-    }
+    this.showPopup("Playlist submitted!");
+
+    // let data = this.state.dishes;
+    // const result = {};
+    // for (const key in data) {
+    //   const dishId = [];
+    //   console.log(key);
+    //   if (key === data[0]) {
+    //     continue;
+    //   }
+    //   dishId[key] = data.item[key];
+    //   result.push({ DishID: dishId });
+    // }
 
     //     let dishObject = {
     // for
@@ -118,6 +135,7 @@ export default class Create extends React.Component {
     this.setState({
       dishChoice: {},
     });
+    this.showPopup("Dish added!");
   };
 
   submitPlaylist(event) {
@@ -190,6 +208,7 @@ export default class Create extends React.Component {
                     onValueChange={this.onValueChange}
                     picker={this.picker}
                     dishChoice={this.state.dishChoice}
+                    showPopup={this.showPopup}
                   />
                 ))}
               </div>

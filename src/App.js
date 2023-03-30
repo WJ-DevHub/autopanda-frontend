@@ -215,7 +215,6 @@ export default class App extends React.Component {
           />
           <div>{this.renderPage()}</div>
           <header className="App-header"></header>
-          <button onClick={this.addNewPlaylist}>Click here</button>
         </div>
       </React.Fragment>
     );
