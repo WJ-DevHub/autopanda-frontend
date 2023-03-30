@@ -51,7 +51,6 @@ export default function Login(props) {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
-          'Authorisation'
         },
         body: JSON.stringify(data)
       };

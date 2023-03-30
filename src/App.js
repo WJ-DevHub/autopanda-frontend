@@ -214,7 +214,6 @@ export default class App extends React.Component {
             setLoggedIn={this.setLoggedIn}
           />
           <div>{this.renderPage()}</div>
-          <header className="App-header"></header>
         </div>
       </React.Fragment>
     );
