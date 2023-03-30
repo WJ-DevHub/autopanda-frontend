@@ -5,7 +5,6 @@ export default function Login(props) {
 
     const { loggedIn, setLoggedIn, userdata, updateUserData } = props;
     const info = props.trial;
-    console.log(info)
     
     const [visible, setVisible] = useState(false);
     const [showAnimation, setShowAnimation] = useState(false);
@@ -18,12 +17,12 @@ export default function Login(props) {
     const handleLogin = (newUserName) => {
       const newUserData = [{
         loggedIn: true, 
-        firstName: "newFirstName", 
-        lastName: "newLastName", 
+        firstName: "  John", 
+        lastName: "Doe", 
         userName: newUserName, 
-        userPassword: "newPassword", 
-        email: "newEmail", 
-        mobile: "newMobile"}];
+        userPassword: "password123", 
+        email: "johndoe@gmail.com", 
+        mobile: "9123 4567"}];
       setLoggedIn(true);
       updateUserData(newUserData);
     };
