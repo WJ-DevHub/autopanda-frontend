@@ -7,12 +7,14 @@ export default function Navbar(props) {
   const {loggedIn, setLoggedIn, updateUserData} = props;
   const trial = props.page;
 
+  console.log(trial)
   const switchPage = props.switchPage;
 
   const handleLogout = () => {
     setLoggedIn(false); // update loggedIn state to false
     switchPage("home"); // redirect to login page
   };
+  
 
   function logoutUser(username) {
     const url = 'http://localhost:8080/userLogout';
@@ -70,23 +72,33 @@ export default function Navbar(props) {
                   Home
                 </a>
               </li>
+
               <li class="nav-item">
-                <a
-                  class="nav-link"
-                  href="#"
-                  onClick={() => switchPage("profile")}
-                >
-                  Profile
+                {trial.userdata[0].loggedIn == false ? 
+                <a></a>
+                  :
+                  <a
+                    class="nav-link"
+                    href="#"
+                    onClick={() => switchPage("profile")}
+                  >
+                    Profile
                 </a>
+              }
               </li>
+
               <li class="nav-item">
+                {trial.userdata[0].loggedIn == false ? 
+                <a></a>
+                  : 
                 <a
                   class="nav-link"
                   href="#"
                   onClick={() => switchPage("history")}
                 >
-                  History
-                </a>
+                History
+              </a>
+              }
               </li>
               <li class="nav-item">
                 <a
@@ -99,13 +111,13 @@ export default function Navbar(props) {
               </li>
               <li class="nav-item">
               {trial.userdata[0].loggedIn == false ? 
-              <Login trial={trial} 
-              setLoggedIn={setLoggedIn}
-              updateUserData={updateUserData}/>:
-              <Logout trial={trial} 
-              logoutUser={logoutUser}
-              handleLogout={handleLogout} /> 
-}         
+                <Login trial={trial} 
+                setLoggedIn={setLoggedIn}
+                updateUserData={updateUserData}/>:
+                <Logout trial={trial} 
+                logoutUser={logoutUser}
+                handleLogout={handleLogout} /> 
+                }         
               </li>
             </ul>
           </div>
