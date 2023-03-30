@@ -185,7 +185,11 @@ updateUserData = (newUserdata) => {
         />
       );
     } else if (this.state.page === "profile") {
-      return <ProfilePage />;
+      return (<ProfilePage 
+      state={this.state}
+      updateUserData={this.updateUserData} 
+      />
+      );
     } else if (this.state.page === "featuredplaylist") {
       return (
         <FeaturedPlaylist
