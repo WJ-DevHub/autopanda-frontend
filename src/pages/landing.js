@@ -3,8 +3,9 @@ import React from "react";
 export default function LandingPage() {
   return (
     <React.Fragment>
-      <h1>Landing Page</h1>
-      <div class="landing-divider"></div>
+      <h1
+      class ="display-4 fw-bold lh-2mb-3 page-header"></h1>
+      <div></div>
       <div class="container col-xxl-8 px-4 py-5">
         <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
           <div class="col-10 col-sm-8 col-lg-6">

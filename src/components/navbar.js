@@ -40,14 +40,15 @@ export default function Navbar(props) {
 
   return (
     <React.Fragment>
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <nav className="navbar navbar-expand-lg navbar-light">
         <div class="container-fluid">
           <a
             class="navbar-brand"
             href="#"
+            class="headerClass"
             onClick={() => switchPage("home")}
           >
-            AutoPanda Logo
+             <img class="icon-style" src="https://logowik.com/content/uploads/images/foodpanda4747.jpg" alt="FoodPanda Logo" />
           </a>
           <button
             class="navbar-toggler"
@@ -87,19 +88,6 @@ export default function Navbar(props) {
               }
               </li>
 
-              <li class="nav-item">
-                {trial.userdata[0].loggedIn == false ? 
-                <a></a>
-                  : 
-                <a
-                  class="nav-link"
-                  href="#"
-                  onClick={() => switchPage("history")}
-                >
-                History
-              </a>
-              }
-              </li>
               <li class="nav-item">
                 <a
                   class="nav-link"
