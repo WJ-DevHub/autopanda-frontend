@@ -34,7 +34,10 @@ export default function DishLoader(props) {
                     onChange={(event) => {
                       props.onValueChange(event);
                     }}
-                    checked={props.dishChoice[option[0]] === child}
+                    checked={
+                      props.dishChoice["item"] === props.dish.name &&
+                      props.dishChoice[option[0]] === child
+                    }
                   />
                   {child}
                 </label>

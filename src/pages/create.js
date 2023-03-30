@@ -45,7 +45,9 @@ export default class Create extends React.Component {
 
     this.setState({ newDishData2: dishDataResponse.data.data.DishIncluded });
   }
+
   SELECTED_API_URL = "http://localhost:8081/playlists/restaurant";
+
   onValueChange(event) {
     const picker = event.target.name;
 
@@ -66,9 +68,38 @@ export default class Create extends React.Component {
     this.setState({ dishChoice: optionList });
   }
 
-  formSubmit(event) {
-    event.preventDefault();
-    console.log(this.state.selectedOption);
+  formSubmit() {
+    let data = this.state.dishes;
+    const result = {};
+    for (const key in data) {
+      const dishId = [];
+      console.log(key);
+      if (key === data[0]) {
+        continue;
+      }
+      dishId[key] = data.item[key];
+      result.push({ DishID: dishId });
+    }
+
+    //     let dishObject = {
+    // for
+    //     }
+
+    //         this.setState({ newPlaylist: {
+    //           "userID": "user6",
+    //           "playlistID": "",
+    //           "customized": false,
+    //           "status": "Active",
+    //           "frequency": this.freqpicked,
+    //           'startDate': "",
+    //           "endDate": "",
+    //           "TimeSlot": this.slotpicked,
+    //           "restaurantID": this.props.state.userchoice.id,
+    //           "DishIncluded": [{
+
+    //           }]
+
+    //         } });
   }
 
   registerChoice = (numberofchoices) => {
@@ -189,6 +220,7 @@ export default class Create extends React.Component {
               selectFreq={this.selectFreq}
               deliveryAddress={this.state.deliveryAddress}
               updateFormField={this.updateFormField}
+              formSubmit={this.formSubmit}
             />
           </div>
         )}

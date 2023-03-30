@@ -55,7 +55,7 @@ export default class FeaturedPlaylist extends React.Component {
                 aria-label="Slide 4"
               ></button>
             </div>
-            <div class="carousel-inner">
+            <div class="carousel-inner" style={{ height: "500px" }}>
               <div class="carousel-item active">
                 <img
                   src="/images/placeholder1.jpg"
@@ -63,6 +63,17 @@ export default class FeaturedPlaylist extends React.Component {
                   alt="..."
                 />
               </div>
+
+              {this.playlistdetails.DishIncluded.map((dish) => (
+                <div class="carousel-item">
+                  <img
+                    src={dish.imageUrl}
+                    class="d-block"
+                    alt="..."
+                    style={{}}
+                  />
+                </div>
+              ))}
               <div class="carousel-item">
                 <img
                   src="/images/placeholder2.jpg"
@@ -120,14 +131,9 @@ export default class FeaturedPlaylist extends React.Component {
                 {this.playlistdetails.RestaurantInfo[1].restaurantName} and
                 more...
               </h2>
-              <div class="container">
-                <h6>other items to mention...</h6>
-                <h6>other items to mention...</h6>
-
-                <h6>other items to mention...</h6>
-              </div>
+              <div class="container"></div>
             </div>
-            <div class="col-5 text-end">test2</div>
+            <div class="col-5 text-end"></div>
           </div>{" "}
           {this.playlistdetails.RestaurantInfo.map((eachRestaurant) => (
             <RestaurantLoader

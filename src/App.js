@@ -47,15 +47,15 @@ export default class App extends React.Component {
     dishdata: [],
     userdata: [
       {
-      loggedIn:false,
-      id: "",
-      firstName: "",
-      lastName: "",
-      userName: "",
-      userPassword: "",
-      email: "",
-      mobile: "",
-      }
+        loggedIn: false,
+        id: "",
+        firstName: "",
+        lastName: "",
+        userName: "",
+        userPassword: "",
+        email: "",
+        mobile: "",
+      },
     ],
     userplaylist: [],
     newplaylist: [
@@ -96,9 +96,9 @@ export default class App extends React.Component {
     const restaurantDataResponse = await axios.get(
       `${this.PLAYLIST_URL}/playlists/restaurants`
     );
-    const userDataResponse = await axios.get(
-      `${this.SUBSCRIPTION_URL}/subscription/user` + `/${this.currentUser}`
-    );
+    // const userDataResponse = await axios.get(
+    //   `${this.SUBSCRIPTION_URL}/subscription/user` + `/${this.currentUser}`
+    // );
     const playlistDataResponse = await axios.get(
       `${this.PLAYLIST_URL}/playlists`
     );
@@ -107,7 +107,7 @@ export default class App extends React.Component {
       vendordata: vendorDataResponse.data,
       dishdata: dishDataResponse.data,
       restaurantdata: restaurantDataResponse.data.data,
-      userData: userDataResponse.data,
+      // userData: userDataResponse.data,
       playlistData: playlistDataResponse.data.data,
     });
   }
@@ -139,24 +139,24 @@ export default class App extends React.Component {
       userchoice: vendorId,
     });
   };
- addDish = (dishChoice) => {};
+  addDish = (dishChoice) => {};
 
- setLoggedIn = (loggedIn) => {
-  const { userdata } = this.state;
-  const updatedUserdata = [{ ...userdata[0], loggedIn }];
-  this.setState({
-    userdata: updatedUserdata,
-  });
-};
+  setLoggedIn = (loggedIn) => {
+    const { userdata } = this.state;
+    const updatedUserdata = [{ ...userdata[0], loggedIn }];
+    this.setState({
+      userdata: updatedUserdata,
+    });
+  };
 
-updateUserData = (newUserdata) => {
-  const { userdata } = this.state;
-  var a = userdata[0][0];
-  console.log(a)
-  this.setState({
-    userdata: [newUserdata],
-  });
-};
+  updateUserData = (newUserdata) => {
+    const { userdata } = this.state;
+    var a = userdata[0][0];
+    console.log(a);
+    this.setState({
+      userdata: [newUserdata],
+    });
+  };
   updateFormField = (event) => {
     this.setState({
       [event.target.name]: event.target.value,
@@ -185,10 +185,8 @@ updateUserData = (newUserdata) => {
         />
       );
     } else if (this.state.page === "profile") {
-      return (<ProfilePage 
-      state={this.state}
-      updateUserData={this.updateUserData} 
-      />
+      return (
+        <ProfilePage state={this.state} updateUserData={this.updateUserData} />
       );
     } else if (this.state.page === "featuredplaylist") {
       return (
@@ -209,8 +207,12 @@ updateUserData = (newUserdata) => {
     return (
       <React.Fragment>
         <div className="App">
-        <Navbar page={this.state} switchPage={this.switchPage} updateUserData={this.updateUserData}  setLoggedIn={this.setLoggedIn} 
-/>
+          <Navbar
+            page={this.state}
+            switchPage={this.switchPage}
+            updateUserData={this.updateUserData}
+            setLoggedIn={this.setLoggedIn}
+          />
           <div>{this.renderPage()}</div>
           <header className="App-header"></header>
           <button onClick={this.addNewPlaylist}>Click here</button>

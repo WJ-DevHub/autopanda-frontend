@@ -17,6 +17,7 @@
     "popper.js": "^1.16.1",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.2",
+    "react-bootstrap-typeahead": "^6.1.0",
     "react-day-picker": "^8.6.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.5",

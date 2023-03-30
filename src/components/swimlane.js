@@ -64,28 +64,27 @@ export default function Swimlane(props) {
                 props.switchPage("featuredplaylist");
               }}
             >
-              <Card style={{ width: "100%", height: "150px" }}>
+              <Card style={{ width: "100%", height: "250px" }}>
                 <div class="swimlane-card" key={eachPlaylist.id}>
                   <div
                     class="card-body"
                     style={{
-                      backgroundImage: `url(${eachPlaylist.vendorheader})`,
+                      backgroundImage: `url(${eachPlaylist.DishIncluded[0].imageUrl})`,
                     }}
                   >
-                    <div class="card-title">{eachPlaylist.Playlist.name}</div>
-                    <ul>Rating: {eachPlaylist.Playlist.popularity}</ul>
+                    <div
+                      class="card-body d-flex justify-content-center text-center align-self-end"
+                      style={{ backgroundColor: "pink" }}
+                    >
+                      <div class="card-title">{eachPlaylist.Playlist.name}</div>
+                      <ul>Rating: {eachPlaylist.Playlist.popularity}</ul>
+                    </div>
                   </div>
                 </div>
               </Card>
             </button>
           );
         })}
-        <button
-          href=""
-          onClick={() => {
-            props.switchPage("featuredplaylist");
-          }}
-        ></button>
       </div>
     </React.Fragment>
   );

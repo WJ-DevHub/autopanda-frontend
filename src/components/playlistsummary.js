@@ -236,7 +236,7 @@ export default function PlaylistSummary(props) {
         className="btn btn-default"
         type="submit"
         onClick={() => {
-          props.registerChoice(props.dish.options.length + 1);
+          props.formSubmit();
         }}
         class="btn btn-primary btn-lg px-4 me-md-2"
       >

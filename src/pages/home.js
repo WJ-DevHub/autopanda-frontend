@@ -1,5 +1,6 @@
 import React from "react";
 import Swimlane from "../components/swimlane";
+import SearchBar from "../components/searchbar";
 //import axios from "axios";
 //import vendordata from "../API/vendordata.json";
 //import { VendorDetails } from "../components/loader";
@@ -13,8 +14,29 @@ export default class HomePage extends React.Component {
   }
 */
   render() {
+    // const options = [
+    //   { id: 1, label: "Apple" },
+    //   { id: 2, label: "Banana" },
+    //   { id: 3, label: "Orange" },
+    //   { id: 4, label: "Pineapple" },
+    //   { id: 5, label: "Mango" },
+    // ];
+    // const data = [
+    //   { id: 1, name: "Result 1", description: "Description of result 1" },
+    //   { id: 2, name: "Result 2", description: "Description of result 2" },
+    //   { id: 3, name: "Result 3", description: "Description of result 3" },
+    //   // add more search results here...
+    // ];
+
     return (
       <React.Fragment>
+        {/* <SearchBar
+          // options={options}
+          // switchPage={this.props.switchPage}
+          // state={this.props.state}
+          data={data}
+        /> */}
+
         <h1>Home</h1>
         <div class="container col-xxl-8 px-4 py-5">
           <div
